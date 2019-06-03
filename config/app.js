@@ -1,9 +1,11 @@
 const url =  "http://www.huishenghuo.net:7001"
+const accountUrl=url+"/mpUserAccount"
 exports.accountUrl = {
-  update: url + "/mpUserAccount/update",
-  login: url + "/mpUserAccount/login",
+  update: accountUrl + "/update",
+  login: accountUrl + "/login",
   getInfo: url + "/mpUserAccount/getInfo",
-  updateInfo: url + "/mpUserAccount/updateInfo"
+  updateInfo: url + "/mpUserAccount/updateInfo",
+
 } //"http://localhost:7001"
 exports.cacheUrl = url + "/mpCache"
 exports.serviceUrl = url + "/mpUserService" //"http://192.168.0.29:7001/static/miniprogram"
