@@ -1,0 +1,19 @@
+<!--pages/user/user.wxml-->
+<view class="top"></view>
+<view class="banner">
+  <view class="avatar">
+    <open-data type="userAvatarUrl"></open-data>
+  </view>
+  <view class="nickname">
+    <open-data type="userNickName" class="nickName"></open-data>
+  </view>
+  <view class="vip-container">
+    <image class="vip-image" src="{{vip.src}}"></image>{{vip.type}}
+  </view>
+</view>
+<navigator url="/pages/user_info/user_info">
+  <image class="icon" src="/images/user/info.png"></image>我的信息</navigator>
+<navigator open-type='switchTab' url="/pages/service/service">
+  <image class="icon" src="/images/user/service.png"></image>我的服务</navigator>
+<navigator url="/pages/order/order"> 
+  <image  class="icon" src="/images/user/order.png"></image>我的订单</navigator>

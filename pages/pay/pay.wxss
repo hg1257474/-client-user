@@ -1,0 +1,71 @@
+/* pages/pay/pay.wxss */
+
+page {
+  text-align: center;
+  background: #f5f9fc;
+}
+
+.title {
+  margin-top: 10vw;
+  font-size: 6vw;
+}
+
+.fee {
+  margin-top: 20vw;
+  font-size: 10vw;
+  color: #0050b3;
+}
+
+.price-table {
+  margin-top: 15vw;
+  width: 92vw;
+  margin-left: 4vw;
+}
+
+.category {
+  width: 20%;
+  float: left;
+  color: #0050b3;
+  background: #e6f7ff;
+  font-size:5vw;
+  padding:2vw 0;
+}
+
+.category-selected {
+  background: white;
+}
+
+.service-table {
+  padding: 10vw 0 10vw;
+  background: white;
+}
+
+.service-table:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.service-left {
+  float: left;
+  width: 30%;
+}
+
+.service-right {
+  width: 70%;
+  text-align: left;
+  float: left;
+}
+
+.categories:after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+button {
+  position: fixed;
+  bottom: 15vw;
+  margin-left: 4vw;
+  width: 92vw;
+}

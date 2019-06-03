@@ -1,0 +1,170 @@
+//index.js
+const {
+  categories,
+  servicesGroup
+} = require('./other')
+const {
+  url,cacheUrl
+} = require("../../config/app.js")
+const {
+  myGetStorage
+} = require('../../utils/storage.js')
+// console.log(getApp())
+Page({
+  data: {
+    modal: {
+      category: null,
+      service: null,
+      show: false
+    },
+    category: 0,
+    categories: undefined,
+    servicesGroup: undefined
+
+  },
+  onReady() {
+    const that=this
+    const indexPage = wx.getStorageSync("indexPage") || {
+      timestamp: null
+    }
+    wx.request({
+      url: cacheUrl,
+      data: {
+        type: "indexPage",
+        timestamp: indexPage.timestamp
+      },
+      success:function(res) {
+        console.log(res)
+        if (res.data)  wx.setStorageSync("indexPage", res.data)
+        that.setData(wx.getStorageSync("indexPage"))
+      }
+    })
+  },
+  ontap() {
+    const query = wx.createSelectorQuery()
+    const nodes = query.selectAll(".services-name")
+    nodes.boundingClientRect(function(rect) {
+      // console.log(rect)
+      rect.id // 节点的ID
+      rect.dataset // 节点的dataset
+      rect.left // 节点的左边界坐标
+      rect.right // 节点的右边界坐标
+      rect.top // 节点的上边界坐标
+      rect.bottom // 节点的下边界坐标
+      rect.width // 节点的宽度
+      rect.height // 节点的高度
+      wx.pageScrollTo({
+        scrollTop: rect[2].top,
+        duration: 300
+      })
+    }).exec()
+
+  },
+  onChoose: function({
+    currentTarget: {
+      dataset: {
+        category,
+        service
+      }
+    }
+  }) {
+    // console.log(service, category)
+    this.setData({
+      modal: {
+        service,
+        category,
+        show: true,
+        icon: servicesGroup[category][2][service][0],
+        name: servicesGroup[category][2][service][1],
+        content: servicesGroup[category][2][service][3]
+      }
+    }, function() {
+      // console.log(this.data)
+    })
+  },
+  onPageScroll(e) {
+    let that = this
+    const query = wx.createSelectorQuery()
+    const nodes = query.selectAll(".services-name")
+    nodes.boundingClientRect(function(rect) {
+
+      rect.some((value, index) => {
+        if (value.top > 0) {
+          // console.log(rect)
+          if (index !== that.data.category) that.setData({
+            category: index
+          })
+          return true
+        }
+      })
+    }).exec()
+  },
+
+  onCategoryTap: function({
+    currentTarget: {
+      dataset: {
+        id
+      }
+    }
+  }) {
+    // console.log(id)
+    this.setData({
+      category: id
+    })
+    const query = wx.createSelectorQuery()
+    const nodes = query.selectAll(".services-name")
+    nodes.boundingClientRect(function(rect) {
+      wx.pageScrollTo({
+        scrollTop: rect[id].top,
+        duration: 300
+      })
+    }).exec()
+
+  },
+  onClose: function(e) {
+    // console.log("close")
+    this.setData({
+      "modal.show": false,
+      "modal.service": null
+    })
+  },
+  onContract: function(e) {
+    // console.log("contract")
+    wx.navigateTo({
+      url: `/pages/question/question?category=${this.data.modal.category}&name=${this.data.modal.service}&type=1`
+    })
+  },
+  onCommunication: function(e) {
+    // console.log(getApp())
+    if (getApp().globalData.info) {
+      if (getApp().globalData.vip) wx.navigateTo({
+        url: `/pages/question/question?category=${this.data.modal.category}&name=${this.data.modal.service}&type=0`
+      })
+      else wx.showModal({
+        title: '您不是会员',
+        content: '请你在充值会员后再进行此操作',
+        confirmText: '充值',
+        confirmColor: 'green',
+        cancelText: '取消',
+        cancelColor: 'gray',
+        success(res) {
+          if (res.confirm) {
+            // console.log('用户点击确定')
+            wx.navigateTo({
+              url: `/pages/pay/pay`
+            })
+          }
+        }
+      })
+
+    } else {
+      wx.showToast({
+        title: '请您先完善身份信息',
+        icon: "none"
+      })
+      setTimeout(() => wx.navigateTo({
+        url: '/pages/user_info/user_info',
+      }), 1500)
+    }
+  }
+})

@@ -1,0 +1,46 @@
+/* pages/service/service.wxss */
+
+page {
+  background: #f5f9fc;
+}
+
+.container {
+  padding: 4vw 3vw 2vw;
+  font-size: 3vw;
+  border-top: 1px solid #262626;
+  background: white;
+}
+
+.status, .name {
+  display: inline-block;
+}
+
+.name-futrue {
+  width: 40vw;
+  font-size:4.5vw;
+  margin-bottom:2vw;
+}
+.name{
+  float:left;
+}
+.newMessage{
+  float:right;
+}
+
+.status {
+  font-size: 3.6vw;
+}
+
+.communication {
+  color: #52c41a;
+}
+
+.finished {
+  color: #595959;
+}
+.name{
+  float:left;
+}
+.newMessage{
+  float:right;
+}

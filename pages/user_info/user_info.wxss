@@ -1,0 +1,31 @@
+/* pages/user_info/user_info.wxss */
+
+page {
+  padding-left: 2vw;
+  background: #f5f9fc;
+}
+
+label {
+  padding: 4vw 0 3vw;
+  color: black;
+  display: block;
+  font-size: 4.5vw;
+  border-top:1px solid #e8e8e8;
+}
+.needInvoice{
+  width:80vw;
+  display:inline-block;
+}
+
+input, textarea ,view{
+  display: inline-block;
+  font-size: 4vw;
+  color: #595959;
+}
+button {
+  background: #1b325f;
+  color: white;
+  width: 94vw;
+  margin-left:1vw;
+}
+
