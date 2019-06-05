@@ -1,7 +1,7 @@
 // pages/question/question.js
 const {
   questionUrl
-} = require("../../config/app.js")
+} = require("../../utils/config.js")
 Page({
 
   /**

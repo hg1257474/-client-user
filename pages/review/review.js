@@ -1,10 +1,8 @@
 // pages/review/review.js
 const {
   url
-} = require('../../config/app')
-const {
-  onError
-} = require('../../utils/request')
+} = require('../../utils/config.js')
+
 let serviceId = null
 Page({
 

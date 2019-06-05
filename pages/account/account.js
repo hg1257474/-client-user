@@ -1,10 +1,11 @@
 // pages/register/register.js
 const {
   accountUrl
-} = require("../../config/app.js")
+} = require("../../utils/config.js")
 Page({
   data: {},
   onLoad: function(options) {
+    console.log(options)
     this.setData(options)
     this.getUserInfo()
   },
@@ -17,12 +18,11 @@ Page({
           method: "POST",
           data: {
             avatar: res.userInfo.avatarUrl,
-            nickName: res.userInfo.nickName,
+            nickname: res.userInfo.nickName,
             openId: that.data.openId
           },
           success(res) {
-            // console.log(res)
-            wx.setStorageSync("sessionId", res.data)
+            getApp().globalData.callbacks[this.data.id]()
             wx.navigateBack({
               delta: 1
             })
@@ -32,18 +32,16 @@ Page({
     })
   },
   onGetUserInfo(e) {
-    // console.log(e)
     wx.request({
       url: accountUrl.update,
       method: "POST",
       data: {
-        nickName: e.detail.userInfo.nickName,
+        nickname: e.detail.userInfo.nickName,
         avatar: e.detail.userInfo.avatarUrl,
         openId: this.data.openId
       },
       success: function(res) {
-        wx.setStorageSync("sessionId", res.data)
-        // getApp().globalData().isLogged = true
+        getApp().globalData.callbacks[this.data.id]()
         wx.navigateBack({
           delta: 1
         })

@@ -1,10 +1,7 @@
 //app.js
-const {
-  accountUrl,
-  cacheUrl
-} = require("config/app.js")
 App({
   onLaunch(options) {
+    /*
    console.log("nothiinddddddddddddddddddddddddddg")
    console.log(1133333333333333)
     let sessionId = wx.getStorageSync("sessionId")
@@ -31,9 +28,10 @@ App({
         })
       }
     })
-
+*/
   },
   globalData: {
+    callbacks:{},
     vip: false,
     info: {
       nickName: "张三"

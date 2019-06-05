@@ -7,7 +7,7 @@ const {
 const {
   cacheUrl,
   payUrl
-} = require('../../config/app.js')
+} = require('../../utils/config.js')
 const {
   myGetStorage
 } = require('../../utils/storage.js')

@@ -4,7 +4,7 @@ const {
 } = require('./data.js');
 const {
   chatUrl
-} = require('../../config/app.js')
+} = require('../../utils/config.js')
 Page({
 
   /**

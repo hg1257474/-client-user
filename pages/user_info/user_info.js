@@ -1,7 +1,7 @@
 // pages/user_info/user_info.js
 const {
   accountUrl
-} = require("../../config/app.js")
+} = require("../../utils/config.js")
 Page({
 
   /**

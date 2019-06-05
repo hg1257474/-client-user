@@ -1,8 +1,11 @@
 // pages/service/service.js
 const io = require("../../utils/weapp.socket.io.js")
 const {
+  getUser
+} = require("../../utils/account.js")
+const {
   serviceUrl
-} = require("../../config/app.js")
+} = require("../../utils/config.js")
 let socket = null
 Page({
   /**
@@ -16,29 +19,28 @@ Page({
    */
   onReady: function() {
     const that = this
-    const {
-      services
-    } = this.data
-    socket = io(serviceUrl, {
-      query: {
-        sessionId: wx.getStorageSync("sessionId")
-      }
-    })
-    socket.emit("pull", "initialization", () => {
-      socket.on("push", (_services, cb) => {
-        console.log(_services)
-        if (_services[0] instanceof Array) that.setData({
-          services: [..._services, ...that.data.services]
+    getUser("sessionId").then(sessionId => {
+      const {
+        services
+      } = that.data
+      socket = io(serviceUrl, {
+        query: {
+          sessionId
+        }
+      })
+      socket.emit("pull", "initialization", (initiallyServices) => {
+        that.setData({
+          services: initiallyServices
         })
-        else {
-          let index = that.data.services.findIndex(item => item[2] === _services[2])
+        socket.on("push", (service, cb) => {
+          let index = that.data.services.findIndex(item => item[2] === service[2])
           if (index !== -1) that.data.services.splice(index, 1)
-          that.data.services.unshift(_services)
+          that.data.services.unshift(service)
           that.setData({
             services: that.data.services
           })
-        }
-        if (cb) cb()
+          if (cb) cb()
+        })
       })
     })
   },
@@ -53,3 +55,5 @@ Page({
     console.log(e.detail)
   },
 })
+
+// will implement batch pull in the future

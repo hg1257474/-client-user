@@ -1,7 +1,8 @@
 {
   "pages": [
+        "pages/index/index",
     "pages/user/user",
-    "pages/index/index",
+
     "pages/chat/chat",
     "pages/pay/pay",
     "pages/user_info/user_info",
