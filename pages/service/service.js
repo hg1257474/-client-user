@@ -19,29 +19,33 @@ Page({
    */
   onReady: function() {
     const that = this
-    getUser("sessionId").then(sessionId => {
-      const {
-        services
-      } = that.data
-      socket = io(serviceUrl, {
-        query: {
-          sessionId
-        }
-      })
-      socket.emit("pull", "initialization", (initiallyServices) => {
-        that.setData({
-          services: initiallyServices
+    wx.request({
+      url: serviceUrl,
+      method: "post",
+      success(res) {
+        const {
+          services
+        } = that.data
+        socket = io(serviceUrl, {
+          query: {
+            sessionId: res.data
+          }
         })
-        socket.on("push", (service, cb) => {
-          let index = that.data.services.findIndex(item => item[2] === service[2])
-          if (index !== -1) that.data.services.splice(index, 1)
-          that.data.services.unshift(service)
+        socket.emit("pull", "initialization", (initiallyServices) => {
           that.setData({
-            services: that.data.services
+            services: initiallyServices
           })
-          if (cb) cb()
+          socket.on("push", (service, cb) => {
+            let index = that.data.services.findIndex(item => item[2] === service[2])
+            if (index !== -1) that.data.services.splice(index, 1)
+            that.data.services.unshift(service)
+            that.setData({
+              services: that.data.services
+            })
+            if (cb) cb()
+          })
         })
-      })
+      }
     })
   },
   /**

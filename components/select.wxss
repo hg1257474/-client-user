@@ -1,0 +1,20 @@
+/* components/select.wxss */
+.container{
+  position:absolute;
+}
+.first-expand:afrer,.first-shrink:after{
+  content:"";
+  border-top:1px solid #858585;
+  border-right:1px solid #858585;
+  width:2em;
+  height:2em;
+}
+.expand:after{
+  transform:rotate(-45deg)
+}
+.collpase:after{
+  transform:rotate(135deg)
+}
+.selected{
+  color:#3a89c9;
+}

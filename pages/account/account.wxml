@@ -1,5 +1,5 @@
 <!--pages/register/register.wxml-->
-<view wx:if="{{!isNeedRegister}}">
+<view wx:if="{{shouldAuthorization}}">
 
   <view class="avatar">
     <open-data type="userAvatarUrl"></open-data>

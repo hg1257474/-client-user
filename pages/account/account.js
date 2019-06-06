@@ -2,12 +2,47 @@
 const {
   accountUrl
 } = require("../../utils/config.js")
+const callback = (res) => {
+  const sessionId = {
+    value: res.cookies[0].match(/EGG_SESS([^;]+);/)[1],
+    expires: res.cookies[0].match(/expires([^;]+);/)[1],
+    raw: res.cookies[0].split(" ")[0]
+  }
+  wx.setStorageSync("sessionId", sessionId)
+  wx.setStorageSync("user", {})
+  wx.switchTab({
+    url: '/pages/index/index',
+  })
+}
 Page({
-  data: {},
+  data: {
+    shouldAuthorization: false
+  },
   onLoad: function(options) {
-    console.log(options)
-    this.setData(options)
-    this.getUserInfo()
+    let sessionId = wx.getStorageSync("sessionId") ? wx.getStorageSync("sessionId").raw : ""
+    wx.login({
+      success(res) {
+        console.log(res.code)
+        console.log(sessionId)
+        wx.request({
+          url: `${accountUrl}?code=${res.code}`,
+          method: "HEAD",
+          header:{cookie:"count=dasdasdsadsa;"},
+          success(res) {
+            console.log(res)
+            if (res.statusCode === 401) {
+              this.setData({
+                openId: res.cookies[0].match(/openId=([^;]+);/)[1]
+              })
+              this.getUserInfo()
+            } else if (res.statusCode === 201) callback(res)
+            else wx.switchTab({
+              url: '/pages/index/index',
+            })
+          }
+        })
+      }
+    })
   },
   getUserInfo() {
     const that = this
@@ -21,12 +56,12 @@ Page({
             nickname: res.userInfo.nickName,
             openId: that.data.openId
           },
-          success(res) {
-            getApp().globalData.callbacks[this.data.id]()
-            wx.navigateBack({
-              delta: 1
-            })
-          }
+          success: callback
+        })
+      },
+      fail() {
+        that.setData({
+          shouldAuthorization: true
         })
       }
     })
@@ -40,12 +75,7 @@ Page({
         avatar: e.detail.userInfo.avatarUrl,
         openId: this.data.openId
       },
-      success: function(res) {
-        getApp().globalData.callbacks[this.data.id]()
-        wx.navigateBack({
-          delta: 1
-        })
-      }
+      success: callback
     })
   }
 })

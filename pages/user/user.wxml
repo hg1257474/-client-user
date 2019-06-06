@@ -11,9 +11,33 @@
     <image class="vip-image" src="{{vip.src}}"></image>{{vip.type}}
   </view>
 </view>
-<navigator url="/pages/user_info/user_info">
-  <image class="icon" src="/images/user/info.png"></image>我的信息</navigator>
-<navigator open-type='switchTab' url="/pages/service/service">
-  <image class="icon" src="/images/user/service.png"></image>我的服务</navigator>
-<navigator url="/pages/order/order"> 
-  <image  class="icon" src="/images/user/order.png"></image>我的订单</navigator>
+<view wx:if="{{!shouldInputCustomerInfo}}">
+  <navigator url="/pages/user_info/user_info">
+    <image class="icon" src="/images/user/info.png"></image>我的信息</navigator>
+  <navigator open-type='switchTab' url="/pages/service/service">
+    <image class="icon" src="/images/user/service.png"></image>我的服务</navigator>
+  <navigator url="/pages/order/order">
+    <image class="icon" src="/images/user/order.png"></image>我的订单</navigator>
+</view>
+
+<form wx:if="{{shouldInputCustomerInfo}}" bindsubmit='onSubmit'>
+  <label>公司全名
+  </label>
+  <input placeholder="未填写" name="company" value="{{company}}" />
+  <label>主营餐饮品类
+  </label>
+  <input placeholder='未填写' name="category" value="{{category}}" />
+  <label>现有门店数量</label>
+  <input placeholder='未填写' name="storeTotal" value="{{storeTotal}}" />
+  <label class="isFranchise">是否加盟</label>
+  <switch name="isFranchise" bindchange='onSwitchChange' />
+  <label>联系人姓名</label>
+  <input placeholder='未填写' name="contact" value="{{contact}}" />
+  <label>联系人电话</label>
+  <input placeholder='未填写' name="phone" value="{{phone}}" />
+  <label>联系人微信</label>
+  <input placeholder='未填写' name="weChat" value="{{weChat}}" />
+  <label>联系人钉钉</label>
+  <input placeholder='未填写' name="dingTalk" value="{{dingTalk}}" />
+  <button form-type='submit'>提交</button>
+</form>
