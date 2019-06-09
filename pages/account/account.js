@@ -1,15 +1,16 @@
 // pages/register/register.js
 const {
+  loginUrl,
   accountUrl
 } = require("../../utils/config.js")
 const callback = (res) => {
+  console.log(res)
   const sessionId = {
-    value: res.cookies[0].match(/EGG_SESS([^;]+);/)[1],
-    expires: res.cookies[0].match(/expires([^;]+);/)[1],
-    raw: res.cookies[0].split(" ")[0]
+    value:res.cookies[0].split(";")[0],
+    raw:res.cookies[1].split(";")[0]
   }
   wx.setStorageSync("sessionId", sessionId)
-  wx.setStorageSync("user", {})
+  wx.setStorageSync("customer", {})
   wx.switchTab({
     url: '/pages/index/index',
   })
@@ -19,22 +20,27 @@ Page({
     shouldAuthorization: false
   },
   onLoad: function(options) {
-    let sessionId = wx.getStorageSync("sessionId") ? wx.getStorageSync("sessionId").raw : ""
+    const that = this
+    let sessionId = wx.getStorageSync("sessionId")&&wx.getStorageSync("sessionId").raw
     wx.login({
-      success(res) {
-        console.log(res.code)
-        console.log(sessionId)
+      success: function(res) {
         wx.request({
-          url: `${accountUrl}?code=${res.code}`,
-          method: "HEAD",
-          header:{cookie:"count=dasdasdsadsa;"},
-          success(res) {
+          url: loginUrl,
+          method: "POST",
+          header: {
+            cookie: sessionId
+          },
+          data: {
+            jsCode: res.code
+          },
+          success: function(res) {
             console.log(res)
-            if (res.statusCode === 401) {
-              this.setData({
-                openId: res.cookies[0].match(/openId=([^;]+);/)[1]
-              })
-              this.getUserInfo()
+            if (res.statusCode === 202) {
+              that.setData({
+                  openId: res.data
+                }, () =>
+                that.getUserInfo()
+              )
             } else if (res.statusCode === 201) callback(res)
             else wx.switchTab({
               url: '/pages/index/index',
@@ -49,8 +55,8 @@ Page({
     wx.getUserInfo({
       success(res) {
         wx.request({
-          url: accountUrl.update,
-          method: "POST",
+          url: accountUrl,
+          method: "PUT",
           data: {
             avatar: res.userInfo.avatarUrl,
             nickname: res.userInfo.nickName,
@@ -68,8 +74,8 @@ Page({
   },
   onGetUserInfo(e) {
     wx.request({
-      url: accountUrl.update,
-      method: "POST",
+      url: accountUrl,
+      method: "PUT",
       data: {
         nickname: e.detail.userInfo.nickName,
         avatar: e.detail.userInfo.avatarUrl,

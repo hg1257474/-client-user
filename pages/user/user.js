@@ -1,4 +1,6 @@
 // pages/user/user.js
+const {customerUrl}=require("../../utils/config.js")
+const vips=["普通","月度","年度"]
 Page({
 
   /**
@@ -12,19 +14,20 @@ Page({
   },
   onReady: function() {
     const initialization = () => {
-      const vip = wx.getStorageSync("user").vip
+      const vip = wx.getStorageSync("customer").vip
       this.setData({
         src: `../../images/user/vip${vip ? "" : "_normal"}.png`,
-        type: vip ? vip.type : "普通会员"
+        type: vip ? vips[vip.kind] : "普通会员"
       })
     }
-    if (wx.getStorageSync("user").vip) initialization()
+    if (wx.getStorageSync("customer").vip) initialization()
     else wx.request({
-      url: customerUrl,
+      url: customerUrl+"/vip",
+      header:{cookie:wx.getStorageSync("sessionId").raw},
       success: function(res) {
-        const user = wx.getStorageSync("user")
-        user.vip = res.data
-        wx.setStorageSync("user", user)
+        const customer = wx.getStorageSync("customer")
+        customer.vip = res.data
+        wx.setStorageSync("customer", customer)
         initialization()
       }
     })
@@ -32,6 +35,9 @@ Page({
   
   onChoose(t) {
     this.setData({"custome.mode":t})
+  },
+  updateInfo(){
+    this.setData({shouldShowInput:true})
   },
   onSubmit(){
     const that=this

@@ -1,9 +1,6 @@
 // pages/service/service.js
 const io = require("../../utils/weapp.socket.io.js")
 const {
-  getUser
-} = require("../../utils/account.js")
-const {
   serviceUrl
 } = require("../../utils/config.js")
 let socket = null

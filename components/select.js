@@ -4,7 +4,8 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    options: Array, // 简化的定义方式,
+    selected: String
   },
 
   /**
