@@ -136,8 +136,9 @@ Page({
   },
   onCommunication: function(e) {
     // console.log(getApp())
+    console.log(wx.getStorageSync("customer"))
     if (wx.getStorageSync("customer").isAllInfo) {
-      if (wx.getStorageSync("customer").vip) wx.navigateTo({
+      if (wx.getStorageSync("customer").vip.kind!=="普通") wx.navigateTo({
         url: `/pages/question/question?category=${this.data.modal.category}&name=${this.data.modal.service}&type=0`
       })
       else wx.showModal({

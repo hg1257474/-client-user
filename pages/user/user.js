@@ -44,7 +44,7 @@ Page({
     }
     const that = this
     wx.request({
-      url: customerUrl + "/info",
+      url: customerUrl,
       header: {
         cookie: wx.getStorageSync("sessionId").raw
       },
@@ -75,6 +75,7 @@ Page({
         console.log(res)
         const customer = wx.getStorageSync("customer")
         customer.info = info
+        customer.isAllInfo=res.data
         wx.setStorageSync("customer", customer)
         that.setData({
           info,

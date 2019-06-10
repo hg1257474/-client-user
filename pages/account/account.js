@@ -10,7 +10,7 @@ const callback = (res) => {
     raw:res.cookies[1].split(";")[0]
   }
   wx.setStorageSync("sessionId", sessionId)
-  wx.setStorageSync("customer", res)
+  wx.setStorageSync("customer", res.data)
   wx.switchTab({
     url: '/pages/index/index',
   })

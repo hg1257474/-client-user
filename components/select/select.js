@@ -5,19 +5,13 @@ Component({
    */
   properties: {
     options: Array, // 简化的定义方式,
-    value: {
-      type: Number,
-      value: 0
-    }
+    selected:String 
   },
   /**
    * 组件的初始数据
    */
   data: {
     shouldShowOptions: false
-  },
-  ready(){
-    this.setData({selected:this.data.value?this.data.options[this.data.value]:""})
   },
   /**
    * 组件的方法列表
@@ -33,7 +27,7 @@ Component({
       console.log(e)
       this.setData({
         shouldShowOptions: false,
-        selected: this.data.options[e.target.dataset.value]
+        selected: e.target.dataset.value
       })
       this.triggerEvent('choose', e.target.dataset.value)
     },
