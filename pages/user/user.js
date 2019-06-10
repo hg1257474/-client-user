@@ -1,12 +1,16 @@
 // pages/user/user.js
-const {customerUrl}=require("../../utils/config.js")
-const vips=["普通","月度","年度"]
+const {
+  customerUrl
+} = require("../../utils/config.js")
+const vips = ["普通", "月度", "年度"]
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    shouldShowInput:false,
+    franchiseModes: ['纯直营', '开放他人加盟', '加盟他人'],
     vip: {
       src: "/images/user/vip_normal.png",
       type: "普通会员"
@@ -20,35 +24,62 @@ Page({
         type: vip ? vips[vip.kind] : "普通会员"
       })
     }
-    if (wx.getStorageSync("customer").vip) initialization()
-    else wx.request({
-      url: customerUrl+"/vip",
-      header:{cookie:wx.getStorageSync("sessionId").raw},
-      success: function(res) {
+    initialization()
+  },
+
+  onChoose(e) {
+    console.log(e)
+    this.setData({
+      "info.franchiseMode": e.detail
+    })
+  },
+  updateInfo() {
+    let info = wx.getStorageSync("customer").info
+    if (info) {
+      this.setData({
+        shouldShowInput: true,
+        info
+      })
+      return
+    }
+    const that = this
+    wx.request({
+      url: customerUrl + "/info",
+      header: {
+        cookie: wx.getStorageSync("sessionId").raw
+      },
+      method: "GET",
+      success(res) {
+        info = res.data
         const customer = wx.getStorageSync("customer")
-        customer.vip = res.data
+        customer.info = info
         wx.setStorageSync("customer", customer)
-        initialization()
+        that.setData({
+          shouldShowInput: true,
+          info
+        })
       }
     })
   },
-  
-  onChoose(t) {
-    this.setData({"custome.mode":t})
-  },
-  updateInfo(){
-    this.setData({shouldShowInput:true})
-  },
-  onSubmit(){
-    const that=this
+  onSubmit(e) {
+    console.log(e)
+    const that = this
+    const info = e.detail.value
+    info.franchiseMode = this.data.info.franchiseMode
     wx.request({
-      url:customerUrl,
-      method:"put",
-      data:this.data.customer,
-      success(){
-        const user=wx.getStorageSync("user")
-        user.customer=that.data.customer
-        wx.setStorageSync("user",user)
+      url: customerUrl,
+      method: "PUT",
+      data: info,
+      header:{cookie:wx.getStorageSync("sessionId").raw},
+      success(res) {
+        console.log(res)
+        const customer = wx.getStorageSync("customer")
+        customer.info = info
+        wx.setStorageSync("customer", customer)
+        that.setData({
+          info,
+          shouldShowInput: false
+        })
       }
     })
   }

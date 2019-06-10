@@ -136,8 +136,8 @@ Page({
   },
   onCommunication: function(e) {
     // console.log(getApp())
-    if (getApp().globalData.info) {
-      if (getApp().globalData.vip) wx.navigateTo({
+    if (wx.getStorageSync("customer").isAllInfo) {
+      if (wx.getStorageSync("customer").vip) wx.navigateTo({
         url: `/pages/question/question?category=${this.data.modal.category}&name=${this.data.modal.service}&type=0`
       })
       else wx.showModal({
@@ -163,7 +163,7 @@ Page({
         icon: "none"
       })
       setTimeout(() => wx.navigateTo({
-        url: '/pages/user_info/user_info',
+        url: '/pages/user/user?shouldShowInput=true',
       }), 1500)
     }
   }

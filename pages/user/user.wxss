@@ -87,11 +87,12 @@ page{
   color:#646464;
   border-bottom:1px solid #e6e6e6;
 }
-input{
+input,select{
   height:100%;
   float:right;
   width:56vw;
-  color:black
+  color:black;
+  position:relative;
   margin-right:2.67vw;
 }
 .item-icon{

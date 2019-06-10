@@ -6,11 +6,11 @@ const {
 const callback = (res) => {
   console.log(res)
   const sessionId = {
-    value:res.cookies[0].split(";")[0],
+    value:res.cookies[0].match(/sessionId=([^;]+);/)[1],
     raw:res.cookies[1].split(";")[0]
   }
   wx.setStorageSync("sessionId", sessionId)
-  wx.setStorageSync("customer", {})
+  wx.setStorageSync("customer", res)
   wx.switchTab({
     url: '/pages/index/index',
   })

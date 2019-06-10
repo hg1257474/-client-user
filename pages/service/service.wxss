@@ -1,46 +1,27 @@
 /* pages/service/service.wxss */
 
-page {
-  background: #f5f9fc;
+.name {
+  margin-left: 3.6vw;
+  font-size: 4.27vw;
 }
 
-.container {
-  padding: 4vw 3vw 2vw;
-  font-size: 3vw;
-  border-top: 1px solid #262626;
-  background: white;
-}
-
-.status, .name {
-  display: inline-block;
-}
-
-.name-futrue {
-  width: 40vw;
-  font-size:4.5vw;
-  margin-bottom:2vw;
-}
-.name{
-  float:left;
-}
-.newMessage{
-  float:right;
+.date {
+  margin-left: 29.47vw;
+  font-size: 3.87vw;
+  color: #999;
 }
 
 .status {
-  font-size: 3.6vw;
+  margin-left: 11.33vw;
+  font-size: 3.87vw;
+  color: #999;
 }
 
-.communication {
-  color: #52c41a;
+view {
+  display: inline-block;
 }
 
-.finished {
-  color: #595959;
-}
-.name{
-  float:left;
-}
-.newMessage{
-  float:right;
+button {
+  height: 14.67vw;
+  border-bottom: 1px solid #e6e6e6;
 }

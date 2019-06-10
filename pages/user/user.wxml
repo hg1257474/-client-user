@@ -24,37 +24,37 @@
   <view class="item">
     <image src="/images/user_info/company.png" class="item-icon"></image>
     企业全名
-    <input placeholder="未填写" name="company" value="{{company}}" />
+    <input placeholder="未填写" name="company" value="{{info.company}}" />
   </view>
   <view class="item">
     <image src="/images/user_info/store_total.png" class="item-icon"></image>
     门店数量
-    <input placeholder='未填写' name="storeTotal" value="{{storeTotal}}" />
+    <input placeholder='未填写' name="storeTotal" value="{{info.storeTotal}}" />
   </view>
   <view class="item">
     <image src="/images/user_info/franchise_mode.png" class="item-icon"></image>
     加盟模式
-    <select bindchoose="onChoose" options="{{franchiseModes}}" selected="{{info.franchiseMode}}" />
+    <select bindchoose="onChoose" options="{{franchiseModes}}" value="{{info.franchiseMode}}" />
   </view>
   <view class="item">
     <image src="/images/user_info/contact.png" class="item-icon"></image>
     联系人
-    <input placeholder='未填写' name="contact" value="{{contact}}" />
+    <input placeholder='未填写' name="contact" value="{{info.contact}}" />
   </view>
   <view class="item">
     <image src="/images/user_info/phone.png" class="item-icon"></image>
     电话
-    <input placeholder='未填写' name="phone" value="{{phone}}" />
+    <input placeholder='未填写' name="phone" value="{{info.phone}}" />
   </view>
   <view class="item">
     <image src="/images/user_info/weChat.png" class="item-icon"></image>
     微信
-    <input placeholder='未填写' name="weChat" value="{{weChat}}" />
+    <input placeholder='未填写' name="weChat" value="{{info.weChat}}" />
   </view>
   <view class="item">
     <image src="/images/user_info/dingTalk.png" class="item-icon"></image>
     钉钉
-    <input placeholder='未填写' name="dingTalk" value="{{dingTalk}}" />
+    <input placeholder='未填写' name="dingTalk" value="{{info.dingTalk}}" />
   </view>
   <button class="user-info-btn" form-type='submit'>保存</button>
 </form>

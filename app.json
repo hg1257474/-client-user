@@ -1,13 +1,13 @@
 {
   "pages": [
     "pages/account/account",
+    "pages/review/review",
+    "pages/order_info/order_info",
     "pages/index/index",
     "pages/user/user",
     "pages/chat/chat",
     "pages/pay/pay",
-    "pages/review/review",
     "pages/service/service",
-    "pages/order_info/order_info",
     "pages/question/question",
     "pages/order/order",
     "template/modal/modal"

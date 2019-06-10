@@ -16,34 +16,37 @@ Page({
    */
   onReady: function() {
     const that = this
-    wx.request({
-      url: serviceUrl,
-      method: "post",
-      success(res) {
-        const {
-          services
-        } = that.data
-        socket = io(serviceUrl, {
-          query: {
-            sessionId: res.data
-          }
-        })
-        socket.emit("pull", "initialization", (initiallyServices) => {
-          that.setData({
-            services: initiallyServices
-          })
-          socket.on("push", (service, cb) => {
-            let index = that.data.services.findIndex(item => item[2] === service[2])
-            if (index !== -1) that.data.services.splice(index, 1)
-            that.data.services.unshift(service)
-            that.setData({
-              services: that.data.services
-            })
-            if (cb) cb()
-          })
-        })
+    const {
+      services
+    } = that.data
+    socket = io(serviceUrl, {
+      query: {
+        sessionId: wx.getStorageSync("sessionId").value
       }
     })
+    console.log(1)
+    socket.emit("pull", (initiallyServices) => {
+      console.log(2)
+      console.log(initiallyServices)
+      const services = initiallyServices.map(item => {
+        const date = new Date(item[1])
+        item[0] = `${date.getYear()}.${date.getMonth()}.${date.getDate()}`
+        return item
+      })
+      that.setData({
+        services
+      })
+      socket.on("push", (service, cb) => {
+        let index = that.data.services.findIndex(item => item[2] === service[2])
+        if (index !== -1) that.data.services.splice(index, 1)
+        that.data.services.unshift(service)
+        that.setData({
+          services: that.data.services
+        })
+        if (cb) cb()
+      })
+    })
+
   },
   /**
    * 页面上拉触底事件的处理函数
