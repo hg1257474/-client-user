@@ -2,7 +2,7 @@
 const {
   customerUrl
 } = require("../../utils/config.js")
-const vips = ["普通", "月度", "年度"]
+//const vips = ["普通", "月度", "年度"]
 Page({
 
   /**
@@ -18,10 +18,11 @@ Page({
   },
   onReady: function() {
     const initialization = () => {
+      console.log(wx.getStorageSync("customer"))
       const vip = wx.getStorageSync("customer").vip
       this.setData({
         src: `../../images/user/vip${vip ? "" : "_normal"}.png`,
-        type: vip ? vips[vip.kind] : "普通会员"
+        type: vip.kind+"会员"
       })
     }
     initialization()

@@ -6,7 +6,7 @@
 }
 
 .date {
-  margin-left: 29.47vw;
+  margin-left: 11.47vw;
   font-size: 3.87vw;
   color: #999;
 }
@@ -24,4 +24,6 @@ view {
 button {
   height: 14.67vw;
   border-bottom: 1px solid #e6e6e6;
+  padding:0;
+  background:white;
 }

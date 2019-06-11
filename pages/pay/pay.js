@@ -8,9 +8,6 @@ const {
   cacheUrl,
   payUrl
 } = require('../../utils/config.js')
-const {
-  myGetStorage
-} = require('../../utils/storage.js')
 Page({
 
   /**
@@ -32,7 +29,8 @@ Page({
     if (options.shouldPayContract) {
       wx.request({
         url: `${payUrl}`,
-        method: "post",
+        header:{cookie:wx.getStorageSync("sessionId").raw},
+        method: "POST",
         data: options,
         success(res) {
           console.log(res)
@@ -86,16 +84,6 @@ Page({
     })
   },
   onPay() {
-    /*
-    const url1 =`http://hbimg.huabanimg.com:80/3f6f64c36b07680ed325cc73e18523b33323cb3413f7f9-XQ2jOG_fw658`
-    const url2 =`http://118.126.115.165:7001/chat/document?index=3&chatId=5cf1f3a777cf0b003bacf028`
-    wx.previewImage({
-      urls: [url2],
-      current: url2,
-      compelete(res){console.log(res)}
-    })
-    return
-    */
     if (this.data.shouldPayContract) wx.requestPayment({
       ...this.data.param,
       success() {
@@ -111,8 +99,10 @@ Page({
       url: `${payUrl}`,
       method: "post",
       data: {
-        sessionId: wx.getStorageSync("sessionId"),
         category: this.data.category,
+      },
+      header:{
+        cookie:wx.getStorageSync("sessionId").raw
       },
       success(res) {
         console.log(res)

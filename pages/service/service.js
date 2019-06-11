@@ -25,14 +25,14 @@ Page({
       }
     })
     console.log(1)
-    socket.emit("pull", (initiallyServices) => {
-      console.log(2)
-      console.log(initiallyServices)
-      const services = initiallyServices.map(item => {
+    socket.emit("pull",(_res) => {
+      console.log(_res)
+      const services = _res.map(item => {
         const date = new Date(item[1])
-        item[0] = `${date.getYear()}.${date.getMonth()}.${date.getDate()}`
+        item[1] = `${date.getFullYear()}.${date.getMonth()}.${date.getDate()}`
         return item
       })
+      
       that.setData({
         services
       })
