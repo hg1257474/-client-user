@@ -101,6 +101,7 @@ page {
 .contract {
   display: flex;
   align-items: center;
+  flex-direction: column;
 }
 
 .con-img {

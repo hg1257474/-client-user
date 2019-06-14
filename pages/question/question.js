@@ -39,7 +39,7 @@ Page({
         method: "POST",
         success(res) {
           console.log(res)
-          wx.navigateTo({
+          wx.redirectTo({
             url: `/pages/chat/chat?chatId=${res.data}&formId=${event.detail.formId}`
           })
         }

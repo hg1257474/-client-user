@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isNoServices: false,
     services: []
   },
   /**
@@ -25,19 +26,24 @@ Page({
       }
     })
     console.log(1)
-    socket.emit("pull",(_res) => {
+    socket.emit("pull", (_res) => {
       console.log(_res)
+      if (!_res.length) this.setData({
+        isNoServices: true
+      })
       const services = _res.map(item => {
         const date = new Date(item[1])
         item[1] = `${date.getFullYear()}.${date.getMonth()}.${date.getDate()}`
         return item
       })
-      
+
       that.setData({
         services
       })
       socket.on("push", (service, cb) => {
-        let index = that.data.services.findIndex(item => item[2] === service[2])
+        service[1] = new Date(service[1])
+        service[1] = `${service[1].getFullYear()}.${service[1].getMonth()}.${service[1].getDate()}`
+        let index = that.data.services.findIndex(item => item[3] === service[3])
         if (index !== -1) that.data.services.splice(index, 1)
         that.data.services.unshift(service)
         that.setData({

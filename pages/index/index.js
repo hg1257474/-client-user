@@ -4,7 +4,8 @@ const {
   servicesGroup
 } = require('./other')
 const {
-  url,cacheUrl
+  url,
+  cacheUrl
 } = require("../../utils/config.js")
 const {
   myGetStorage
@@ -22,8 +23,28 @@ Page({
     servicesGroup: undefined
 
   },
+  onShow() {
+    console.log(wx.getStorageSync("sessionId"))
+    const {
+      globalData
+    } = getApp()
+    let flag = true
+    if (globalData.index && globalData.index.shouldCompleteInfo) {
+      flag = false;
+      globalData.index = { ...globalData.index,
+        shouldCompleteInfo: false
+      }
+    }
+    if (flag && this.data.modal.show) this.setData({
+      modal: {
+        category: null,
+        service: null,
+        show: false
+      }
+    })
+  },
   onReady() {
-    const that=this
+    const that = this
     const indexPage = wx.getStorageSync("indexPage") || {
       timestamp: null
     }
@@ -33,9 +54,9 @@ Page({
         type: "indexPage",
         timestamp: indexPage.timestamp
       },
-      success:function(res) {
+      success: function(res) {
         console.log(res)
-        if (res.data)  wx.setStorageSync("indexPage", res.data)
+        if (res.data) wx.setStorageSync("indexPage", res.data)
         that.setData(wx.getStorageSync("indexPage"))
       }
     })
@@ -60,6 +81,7 @@ Page({
     }).exec()
 
   },
+
   onChoose: function({
     currentTarget: {
       dataset: {
@@ -136,9 +158,10 @@ Page({
   },
   onCommunication: function(e) {
     // console.log(getApp())
+    const that=this
     console.log(wx.getStorageSync("customer"))
     if (wx.getStorageSync("customer").isAllInfo) {
-      if (wx.getStorageSync("customer").vip.kind!=="普通") wx.navigateTo({
+      if (wx.getStorageSync("customer").vip.kind !== "普通" || wx.getStorageSync("fake")) wx.navigateTo({
         url: `/pages/question/question?category=${this.data.modal.category}&name=${this.data.modal.service}&type=0`
       })
       else wx.showModal({
@@ -151,6 +174,15 @@ Page({
         success(res) {
           if (res.confirm) {
             // console.log('用户点击确定')
+            let index = getApp().globalData.index || {}
+            getApp().globalData.index = {
+              ...index,
+              callback: () => {
+                wx.navigateTo({
+                  url: `/pages/question/question?category=${that.data.modal.category}&name=${that.data.modal.service}&type=0`
+                })
+              }
+            }
             wx.navigateTo({
               url: `/pages/pay/pay`
             })
@@ -163,9 +195,18 @@ Page({
         title: '请您先完善身份信息',
         icon: "none"
       })
-      setTimeout(() => wx.navigateTo({
-        url: '/pages/user/user?shouldShowInput=true',
-      }), 1500)
+      setTimeout(() => {
+        const {
+          globalData
+        } = getApp()
+        globalData.index = {
+          ...globalData.index,
+          shouldCompleteInfo: true
+        }
+        wx.switchTab({
+          url: '/pages/user/user',
+        })
+      }, 1500)
     }
   }
 })

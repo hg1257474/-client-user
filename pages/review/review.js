@@ -1,6 +1,6 @@
 // pages/review/review.js
 const {
-  url
+  reviewUrl
 } = require('../../utils/config.js')
 
 let serviceId = null
@@ -27,22 +27,12 @@ Page({
    */
   onLoad: function(options) {
     wx.request({
-      url: `https://user.${url}/service/${options.serviceId}/review`,
-      method: "HEAD",
-      success: function() {
-        wx.showToast({
-          title: '你已作出评价',
-          image: "/images/fail.png",
-          mask: true
-        })
-        setTimeout(() => wx.navigateBack({
-          data: -1
-        }), 1500)
+      url: reviewUrl,
+      success: function(res) {
+        if (res.statusCode === 201) {
+
+        }
       },
-      fail: function(res) {
-        if (res.statusCode === "412") this.serviceId = options.serviceId
-        else onError(res)
-      }
     })
   },
 

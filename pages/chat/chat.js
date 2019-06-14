@@ -16,8 +16,10 @@ Page({
    */
   onLoad: function(options) {
     console.log(options)
+    const body={sessionId:wx.getStorageSync("sessionId").value,...options}
+    console.log(encodeURIComponent(JSON.stringify(body)))
     this.setData({
-      src: `${chatUrl}?${encodeURIComponent(`sessionId=${wx.getStorageSync('sessionId').value}@chatId=${options.chatId}@formId=${options.formId}`)}`
+      src: `${chatUrl}?${encodeURIComponent(JSON.stringify(body))}`
     })
 
   },

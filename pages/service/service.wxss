@@ -1,10 +1,33 @@
 /* pages/service/service.wxss */
+.top-bar{
+  display:flex;
+  justify-content: space-around;
+  background-color: #f26c4f;
+  color: #fff;
+  line-height: 2em;
+}
+
+.top-date {
+  margin-left: 15.47vw;
+}
+
+.top-status {
+  margin-left: 11.33vw;
+}
+
+
+
 
 .name {
   margin-left: 3.6vw;
   font-size: 4.27vw;
 }
+.no-services{
+  display:block;
+  text-align:center;
+  line-height: 2em;
 
+}
 .date {
   margin-left: 11.47vw;
   font-size: 3.87vw;

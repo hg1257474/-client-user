@@ -24,12 +24,12 @@
   <view class="item">
     <image src="/images/user_info/company.png" class="item-icon"></image>
     企业全名
-    <input placeholder="未填写" name="company"  value="{{info.company||''}}" />
+    <input placeholder="未填写" bindinput="onInput" name="company" value="{{info.company||''}}" />
   </view>
   <view class="item">
     <image src="/images/user_info/store_total.png" class="item-icon"></image>
     门店数量
-    <input placeholder='未填写' name="storeTotal" type="number" value="{{info.storeTotal||''}}" />
+    <input placeholder='未填写' bindinput="onInput" name="storeTotal" type="number" value="{{info.storeTotal||''}}" />
   </view>
   <view class="item">
     <image src="/images/user_info/franchise_mode.png" class="item-icon"></image>
@@ -39,22 +39,22 @@
   <view class="item">
     <image src="/images/user_info/contact.png" class="item-icon"></image>
     联系人
-    <input placeholder='未填写' name="contact" value="{{info.contact||''}}" />
+    <input placeholder='未填写' bindinput="onInput" name="contact" value="{{info.contact||''}}" />
   </view>
   <view class="item">
     <image src="/images/user_info/phone.png" class="item-icon"></image>
     电话
-    <input placeholder='未填写' name="phone" type="number" value="{{info.phone||''}}" />
+    <input placeholder='未填写' bindinput="onInput" name="phone" type="number" value="{{info.phone||''}}" />
   </view>
   <view class="item">
     <image src="/images/user_info/weChat.png" class="item-icon"></image>
     微信
-    <input placeholder='未填写' name="weChat" value="{{info.weChat||''}}" />
+    <input placeholder='未填写' bindinput="onInput" name="weChat" value="{{info.weChat||''}}" />
   </view>
   <view class="item">
     <image src="/images/user_info/dingTalk.png" class="item-icon"></image>
     钉钉
-    <input placeholder='未填写' name="dingTalk" value="{{info.dingTalk||''}}" />
+    <input placeholder='未填写' bindinput="onInput" name="dingTalk" value="{{info.dingTalk||''}}" />
   </view>
-  <button class="user-info-btn" form-type='submit'>保存</button>
+  <button class="user-info-btn" form-type='submit'>{{hasChange?'保存':'返回'}}</button>
 </form>

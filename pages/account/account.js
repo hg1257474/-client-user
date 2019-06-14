@@ -5,15 +5,41 @@ const {
 } = require("../../utils/config.js")
 const callback = (res) => {
   console.log(res)
-  const sessionId = {
-    value:res.cookies[0].match(/sessionId=([^;]+);/)[1],
-    raw:res.cookies[1].split(";")[0]
+  console.log(res.cookies)
+  if (res.cookies) {
+    if (res.cookies[0].value) {
+      const sessionId = {
+        value: res.cookies[0].value,
+        raw: "EGG_SESS=" + res.cookies[1].value
+      }
+      wx.setStorageSync("sessionId", sessionId)
+      wx.setStorageSync("customer", res.data)
+      wx.switchTab({
+        url: '/pages/index/index',
+      })
+    } else {
+      const sessionId = {
+        value: res.cookies[0].match(/sessionId=([^;]+);/)[1],
+        raw: res.cookies[1].split(";")[0]
+      }
+      wx.setStorageSync("sessionId", sessionId)
+      wx.setStorageSync("customer", res.data)
+      wx.switchTab({
+        url: '/pages/index/index',
+      })
+    }
+  } else {
+    console.log(res.header["Set-Cookie"])
+    const sessionId = {
+      value: res.header["Set-Cookie"].match(/sessionId=([^;]+);/)[1],
+      raw: res.header["Set-Cookie"].match(/EGG_SESS=([^;]+)/)[0]
+    }
+    wx.setStorageSync("sessionId", sessionId)
+    wx.setStorageSync("customer", res.data)
+    wx.switchTab({
+      url: '/pages/index/index',
+    })
   }
-  wx.setStorageSync("sessionId", sessionId)
-  wx.setStorageSync("customer", res.data)
-  wx.switchTab({
-    url: '/pages/index/index',
-  })
 }
 Page({
   data: {
@@ -21,7 +47,7 @@ Page({
   },
   onLoad: function(options) {
     const that = this
-    let sessionId = wx.getStorageSync("sessionId")&&wx.getStorageSync("sessionId").raw
+    let sessionId = wx.getStorageSync("sessionId") && wx.getStorageSync("sessionId").raw
     wx.login({
       success: function(res) {
         wx.request({
