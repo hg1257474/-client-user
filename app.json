@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/question/question",
+    
     "pages/account/account",
     "pages/review/review",
     "pages/order_info/order_info",
@@ -8,9 +10,9 @@
     "pages/chat/chat",
     "pages/pay/pay",
     "pages/service/service",
-    "pages/question/question",
     "pages/order/order",
-    "template/modal/modal"
+    "template/modal/modal",
+    "pages/service_info/service_info"
   ],
   "permission": {
     "scope.userLocation": {

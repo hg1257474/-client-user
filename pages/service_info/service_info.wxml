@@ -1,0 +1,2 @@
+<!--pages/service_info/service_info.wxml-->
+<web-view src="{{src}}" bindmessage="onMessage"></web-view>
