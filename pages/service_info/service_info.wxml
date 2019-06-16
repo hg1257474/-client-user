@@ -1,2 +1,22 @@
 <!--pages/service_info/service_info.wxml-->
-<web-view src="{{src}}" bindmessage="onMessage"></web-view>
+<view class="service-name">{{serviceName}}</view>
+<view>{{status}}</view>
+<view>问题详情</view>
+<view>{{question.text}}</view>
+<view>已上传文件</view>
+<view wx:if="{{question.files}}" wx:key="{{index}}">{{item[0]}}
+  <button>预览</button>
+  <button>下载</button>
+</view>
+<view wx:if="{{payment}}">
+  <view>{{payment.fee}}</view>
+  <navigator url="{{payment.url}}">{{payment.status}}</navigator>
+</view>
+<view wx:if="{{servicer}}">
+  <view>对接人信息</view>
+  <view>{{servicer.method}}</view>
+  <view>{{servicer.info}}</view>
+</view>
+<view wx:if="{{review}} ">
+  <navigator url="{{'/pages/review/review?serviceId='+serviceId}}">{{review.status}}</navigator>
+</view>

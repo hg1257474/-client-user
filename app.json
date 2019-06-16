@@ -1,7 +1,7 @@
 {
   "pages": [
+    "pages/test/test",
     "pages/question/question",
-    
     "pages/account/account",
     "pages/review/review",
     "pages/order_info/order_info",
