@@ -1,22 +1,29 @@
 <!--pages/service_info/service_info.wxml-->
-<view class="service-name">{{serviceName}}</view>
-<view>{{status}}</view>
-<view>问题详情</view>
-<view>{{question.text}}</view>
+<view class="service-name">{{service.name}}</view>
+<view>{{service.status}}</view>
+<view wx:if="{{question.text}}">
+  <view>问题详情</view>
+  <view>{{question.text}}</view>
+</view>
 <view>已上传文件</view>
-<view wx:if="{{question.files}}" wx:key="{{index}}">{{item[0]}}
-  <button>预览</button>
-  <button>下载</button>
+<view wx:for="{{question.files}}" wx:key="{{index}}">{{item[0]}}
+  <button bindtap="onFilePreview" data-index="{{index}}">预览</button>
+  <button bindtap="onFileDownload">下载</button>
+</view>
+<view>我的联系信息</view>
+<view>{{customerContact.name}}</view>
+<view>{{customerContact.method}}</view>
+<view>{{customerContact.info}}</view>
+<view wx:if="{{servicerContact}}">
+  <view>对接人信息</view>
+  <view>{{servicerContact.name}}</view>
+  <view>{{servicerContact.method}}</view>
+  <view>{{servicerContact.info}}</view>
 </view>
 <view wx:if="{{payment}}">
-  <view>{{payment.fee}}</view>
-  <navigator url="{{payment.url}}">{{payment.status}}</navigator>
-</view>
-<view wx:if="{{servicer}}">
-  <view>对接人信息</view>
-  <view>{{servicer.method}}</view>
-  <view>{{servicer.info}}</view>
+  <view class="{{payment.status}}">{{payment.fee}}</view>
+  <navigator class="{{payment.status}}" url="{{payment.url}}">{{payment.status==="paid"?”查看详情":"付款"}}</navigator>
 </view>
 <view wx:if="{{review}} ">
-  <navigator url="{{'/pages/review/review?serviceId='+serviceId}}">{{review.status}}</navigator>
+  <navigator class="{{review}}" url="{{'/pages/review/review?serviceId='+service.id}}">{{review==="reviewed"?"查看评价":"评价"}}</navigator>
 </view>

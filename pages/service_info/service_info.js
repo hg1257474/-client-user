@@ -1,66 +1,60 @@
 // pages/service_info/service_info.js
+const {
+  serviceUrl
+} = require("../../utils/config.js")
+let serviceId = null
+const raw = {
+  service: {
+    id: null,
+    name: null,
+    status: null
+  },
+  question: {
+    text: null,
+    files: []
+  },
+  custoemrContact: {
+    name: null,
+    method: null,
+    info: null,
+  },
+  servicerContact: {
+    name: null,
+    method: null,
+    info: null
+  },
+  chat: null,
+  payment: {
+    fee: null,
+    status: null,
+  }
+}
 Page({
-
   /**
    * 页面的初始数据
    */
-  data: {
-
+  data: {},
+  onShow: function() {
+    wx.request({
+      url: serviceInfoUrl + "/" + this.data.serviceId,
+      success(res) {
+        const raw = res.data
+        raw.service.id = serviceId
+        if (raw.payment) {
+          if (raw.payment.hasPaid) raw.payment.url = "/pages/order_info/order_info?serviceId=" + serviceId
+          else raw.payment.url = "/pages/pay/pay?shouldPayContract=true&serviceId=" + serviceId
+        }
+        if (raw.hasReview !== undefined) {
+          raw.review = raw.hasReview ? "reviewed" : "noReviewed"
+        }
+        this.setData(raw)
+      }
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  onFilePreview(e) {
+    console.log(e)
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  onFileDownload(e) {
+    console.log(e)
   }
 })

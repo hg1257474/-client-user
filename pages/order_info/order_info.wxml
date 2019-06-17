@@ -1,9 +1,25 @@
 <!--pages/order_info/order_info.wxml-->
-<view class="name">{{name}}</view>
-<view class="left">订单金额:</view>
-<view class="right">{{fee}}</view>
-<view class="left">交易时间:</view>
-<view class="right">{{date}}</view>
-<view class="left">备注:</view>
-<view class="right">{{remark}}
+<view class="title">{{title}}</view>
+<view class="name">
+  <image class="name-image"></image>
+  订单名称
+  <view class="name-content">{{name}}</view>
+</view>
+<view class="other">
+  <view class="other-content">
+    订单金额
+  </view>
+  {{fee}}
+</view>
+<view class="other">
+  <view class="other-content">
+    交易时间
+  </view>
+  {{date}}
+</view>
+<view class="other">
+  <view class="other-content">
+    备注
+  </view>
+  {{remark}}
 </view>

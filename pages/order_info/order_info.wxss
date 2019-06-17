@@ -1,21 +1,31 @@
 /* pages/order_info/order_info.wxss */
-.name {
-  margin: 6vw 0 30vw;
-  display: block;
+
+.title {
+  height: 21.33vw;
+  line-height: 21.33vw;
   text-align: center;
-  font-size: 6vw;
+  font-size: 5.33vw;
+  border-bottom: 2.4vw solid #f2f2f2;
 }
 
-.left, .right {
-  font-size: 4.2vw;
-  display: inline-block;
+.name {
+  color: #999;
+  height: 12vw;
+  line-height: 12vw;
+  font-size: 4vw;
+  margin: 0 4vw;
+  border-bottom: 1px solid #f2f2f2;
 }
 
-.left {
-  width: 20vw;
-  margin-left: 6vw;
+.name-content {
+  color: red;
 }
 
-.right {
-  width: 70vw;
+.other {
+  margin: 0 4vw;
+}
+
+.other-content {
+  display:inline-block;
+  color: #999;
 }
