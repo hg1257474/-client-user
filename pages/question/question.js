@@ -8,16 +8,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    serviceName:"communication"
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    if(shouldChooseFile){
+      wx.request
+    }
     // console.log(options)
     // this.setData(options)
-    
+
   },
   onSubmit(event) {
     console.log(event)
@@ -31,11 +34,16 @@ Page({
     else {
       const sessionId = wx.getStorageSync('sessionId')
       console.log(sessionId)
-      var data={...this.data,question,sessionId}
+      var data = { ...this.data,
+        question,
+        sessionId
+      }
       wx.request({
         url: questionUrl,
         data,
-        header:{cookie:wx.getStorageSync("sessionId").raw},
+        header: {
+          cookie: wx.getStorageSync("sessionId").raw
+        },
         method: "POST",
         success(res) {
           console.log(res)

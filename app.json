@@ -1,19 +1,21 @@
 {
   "pages": [
+        "pages/user/user",
         "pages/account/account",
-    "pages/test/test",
     "pages/question/question",
-    "pages/account/account",
+    "pages/service_info/service_info",
+    "pages/test/test",
+
     "pages/review/review",
     "pages/order_info/order_info",
     "pages/index/index",
-    "pages/user/user",
+
     "pages/chat/chat",
     "pages/pay/pay",
     "pages/service/service",
     "pages/order/order",
     "template/modal/modal",
-    "pages/service_info/service_info"
+    "pages/fileSubmit/fileSubmit"
   ],
   "permission": {
     "scope.userLocation": {

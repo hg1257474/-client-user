@@ -1,2 +1,22 @@
 <!--pages/question/question.wxml-->
-<web-view src="http://localhost:3000" bindmessage="onMessage"></web-view>
+<form>
+  <view wx:if="{{category==='contract'}}">
+    <label>请选择合同服务的类型
+      <input name="serviceName"/>
+    </label>
+  </view>
+  <navigator wx:if="{{serviceName==='review'}}" url="/pages/fileSubmit/fileSubmit?id='dsadasdasd'">上传文件</navigator>
+  <view wx:if="{{serviceName!=='review'}}">
+    <label>请详细描述您的问题</label>
+    <input name="text" />
+  </view>
+  <label>联系人信息</label>
+  <label>姓名</label>
+  <input name="name" />
+  <label>电话</label>
+  <input name="phone" type="number" />
+  <label>沟通方式</label>
+  <input name="method" bindblur="onBlur" />
+  <label>{{method==="weChat"?"微信号":"钉钉号"}}</label>
+  <input name="info" />
+</form>

@@ -22,7 +22,7 @@
 </view>
 <view wx:if="{{payment}}">
   <view class="{{payment.status}}">{{payment.fee}}</view>
-  <navigator class="{{payment.status}}" url="{{payment.url}}">{{payment.status==="paid"?”查看详情":"付款"}}</navigator>
+  <navigator class="{{payment.status}}" url="{{payment.url}}">{{payment.status==="paid"?"查看详情":"付款"}}</navigator>
 </view>
 <view wx:if="{{review}} ">
   <navigator class="{{review}}" url="{{'/pages/review/review?serviceId='+service.id}}">{{review==="reviewed"?"查看评价":"评价"}}</navigator>

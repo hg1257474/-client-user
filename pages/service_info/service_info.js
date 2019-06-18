@@ -36,7 +36,7 @@ Page({
   data: {},
   onShow: function() {
     wx.request({
-      url: serviceInfoUrl + "/" + this.data.serviceId,
+      url: serviceUrl + "/" + this.data.serviceId,
       success(res) {
         const raw = res.data
         raw.service.id = serviceId

@@ -9,7 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    shouldShowInput: false,
+    shouldShowInput: true,
     hasChange: false,
     franchiseModes: ['纯直营', '开放他人加盟', '加盟他人'],
     vip: {
@@ -17,6 +17,7 @@ Page({
       type: "普通会员"
     }
   },
+  /*
   onShow() {
     const {
       globalData
@@ -119,5 +120,7 @@ Page({
         url: '/pages/index/index',
       })
     })
+  
   }
+    */
 })
